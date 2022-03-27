@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        DG.Tweening.DOTween.SetTweensCapacity(500, 50);
     }
     #endregion
 

@@ -10,6 +10,7 @@ public class ObjectPool<T> where T : class
     public Func<T> CreateFunction;
     // Actions that can be used to implement extra logic on pushed/popped objects
     public Action<T> OnPush, OnPop;
+
     public ObjectPool(int initialSize, Func<T> CreateFunction = null, Action<T> OnPush = null, Action<T> OnPop = null)
     {
         pool = new List<T>(initialSize);

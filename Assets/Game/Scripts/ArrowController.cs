@@ -17,6 +17,8 @@ public class ArrowController : MonoBehaviour
     private GameObject arrowPrefab;
     private List<GameObject> activeArrowsList = new List<GameObject>();
 
+    public int ArrowCount => activeArrowsList.Count;
+
     public static ArrowController Instance { get; private set; }
 
     private void Awake()
@@ -95,6 +97,55 @@ public class ArrowController : MonoBehaviour
         transform.localScale = newScale;
     }
 
+    public void DivideArrows(int divider)
+    {
+        if (divider < 1)
+        {
+            return;
+        }
+
+        float reduceAmount = ArrowCount * (divider - 1) / (float)divider;
+        float remaining = ArrowCount - reduceAmount;
+
+        if (remaining < 1)
+        {
+            // Level Failed
+            Debug.Log("Level Failed");
+            return;
+        }
+
+        ReduceArrow(Mathf.CeilToInt(reduceAmount));
+    }
+
+    public void MultiplyArrows(int times)
+    {
+        if (times < 2)
+        {
+            return;
+        }
+
+        SpawnArrow(ArrowCount * (times - 1));
+    }
+
+    public void ReduceArrow(int amount)
+    {
+        if (amount > ArrowCount)
+        {
+            // Level Failed
+            Debug.Log("Level Failed");
+            return;
+        }
+
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject _arrow = activeArrowsList[0];
+            activeArrowsList.Remove(_arrow);
+            arrowPool.Push(_arrow);
+        }
+
+        ReorderArrows();
+    }
+
     public void SpawnArrow(int amount)
     {
         if (amount <= 0)
@@ -114,7 +165,7 @@ public class ArrowController : MonoBehaviour
 
     private void ReorderArrows()
     {
-        if (activeArrowsList.Count == 0)
+        if (ArrowCount == 0)
         {
             return;
         }
@@ -132,7 +183,7 @@ public class ArrowController : MonoBehaviour
 
             for (int i = 0; i < (circleOrder + 1) * 4; i++)
             {
-                if (arrowIndex == activeArrowsList.Count)
+                if (arrowIndex == ArrowCount)
                 {
                     return;
                 }

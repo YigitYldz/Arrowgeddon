@@ -69,12 +69,17 @@ public class Gate : MonoBehaviour
                     ArrowController.Instance.SpawnArrow(value);
                     break;
                 case GateType.Multiplier:
+                    ArrowController.Instance.MultiplyArrows(value);
                     break;
                 case GateType.Reducer:
+                    ArrowController.Instance.ReduceArrow(value);
                     break;
                 case GateType.Divider:
+                    ArrowController.Instance.DivideArrows(value);
                     break;
             }
+
+            Debug.Log("Arrow count: " + ArrowController.Instance.ArrowCount);
         }
     }
 
