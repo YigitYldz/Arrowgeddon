@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.instance.onGameStartEvent.AddListener(OnGameStart);
+        GameManager.Instance.onGameStartEvent.AddListener(OnGameStart);
     }
 
     private void OnGameStart()

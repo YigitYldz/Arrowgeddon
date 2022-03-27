@@ -1,17 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour, IPointerDownHandler , IPointerUpHandler
 {
-    [SerializeField] private float swipeTreshold = 100f;
+    [SerializeField] private float maxDistance = 100f;
 
     public PointerEventData eventData;
-
-    [HideInInspector] public UnityEvent onSwipeRight = new UnityEvent();
-    [HideInInspector] public UnityEvent onSwipeLeft = new UnityEvent();
+    public Vector2 Input { get; private set; }
 
     private Vector2 startPos;
     private Vector2 delta;
@@ -32,6 +27,20 @@ public class InputManager : MonoBehaviour, IPointerDownHandler , IPointerUpHandl
     }
     // Singleton Pattern Ends !
 
+    private void Update()
+    {
+        if (eventData == null)
+        {
+            return;
+        }
+
+        delta = eventData.position - startPos;
+        delta.x = Mathf.Clamp(delta.x, -maxDistance, maxDistance);
+        delta.y = Mathf.Clamp(delta.y, -maxDistance, maxDistance);
+        Input = delta / maxDistance;
+        startPos = eventData.position;
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         this.eventData = eventData;
@@ -40,19 +49,8 @@ public class InputManager : MonoBehaviour, IPointerDownHandler , IPointerUpHandl
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        delta = eventData.position - startPos;
-
-        if (delta.x >= swipeTreshold)
-        {
-            onSwipeRight?.Invoke();
-        }
-        if (delta.x <= -swipeTreshold)
-        {
-            onSwipeLeft?.Invoke();
-        }
-
-        this.eventData = null;
-
+        eventData = null;
+        Input = Vector2.zero;
         startPos = Vector2.zero;
         delta = Vector2.zero;
     }

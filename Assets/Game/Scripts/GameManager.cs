@@ -6,25 +6,28 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
     public UnityEvent onGameStartEvent = new UnityEvent();
+    public bool IsGameActive { get; private set; }
 
-    // Singleton Pattern *
-    public static GameManager instance;
+    #region Singleton
+    // This is a property.
+    public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
             Destroy(gameObject);
         }
     }
-    // Singleton Pattern Ends !
+    #endregion
 
     public void OnStartButtonClicked()
     {
         onGameStartEvent?.Invoke();
+        IsGameActive = true;
     }
 }
