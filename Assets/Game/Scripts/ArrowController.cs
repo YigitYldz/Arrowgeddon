@@ -55,10 +55,7 @@ public class ArrowController : MonoBehaviour
 
     private void HandleEndGameEvent(bool success)
     {
-        if (!success)
-        {
-            splineFollower.follow = false;
-        }
+        splineFollower.follow = false;
     }
         
     private void SetSplineStartDistance()
