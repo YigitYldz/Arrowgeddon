@@ -461,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 876887109212768997, guid: c010831dd252c48498eb0fec10e21da5, type: 3}
       propertyPath: value
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 876887111106023664, guid: c010831dd252c48498eb0fec10e21da5, type: 3}
       propertyPath: m_RootOrder
@@ -885,8 +885,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 10
-  sideSpeed: 35
+  sideSpeed: 45
   sideBounds: 2
+  distanceBetweenArrows: 0.15
+  scaleDownRatio: 0.45
 --- !u!135 &1565855048
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -993,13 +995,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -6}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 3.5, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1539654383}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!114 &1687258586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1091,6 +1093,10 @@ PrefabInstance:
     - target: {fileID: 876887109256674437, guid: c010831dd252c48498eb0fec10e21da5, type: 3}
       propertyPath: type
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 876887109256674437, guid: c010831dd252c48498eb0fec10e21da5, type: 3}
+      propertyPath: value
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 876887111106023664, guid: c010831dd252c48498eb0fec10e21da5, type: 3}
       propertyPath: m_RootOrder

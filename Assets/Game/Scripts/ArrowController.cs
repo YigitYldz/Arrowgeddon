@@ -10,6 +10,7 @@ public class ArrowController : MonoBehaviour
     [SerializeField] private float sideSpeed = 20f;
     [SerializeField] private float sideBounds = 3f;
     [SerializeField] private float distanceBetweenArrows = 0.15f;
+    [SerializeField] private float scaleDownRatio = 0.4f;
 
     private ObjectPool<GameObject> arrowPool;
     private SplineFollower splineFollower;
@@ -43,6 +44,7 @@ public class ArrowController : MonoBehaviour
         if (GameManager.Instance.IsGameActive)
         {
             HandleMovement();
+            HandleScale();
         }
     }
 
@@ -81,6 +83,16 @@ public class ArrowController : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, -sideBounds, sideBounds);
 
         transform.localPosition = pos;
+    }
+
+    private void HandleScale()
+    {
+        float x = Mathf.Abs(transform.localPosition.x);
+        float scaleFactor = sideBounds == 0 ? 0f : 1 - ((sideBounds - x) / sideBounds);
+
+        Vector3 newScale = transform.localScale;
+        newScale.x = 1f - scaleDownRatio * scaleFactor;
+        transform.localScale = newScale;
     }
 
     public void SpawnArrow(int amount)
