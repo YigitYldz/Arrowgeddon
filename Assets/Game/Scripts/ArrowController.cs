@@ -11,6 +11,7 @@ public class ArrowController : MonoBehaviour
     [SerializeField] private float sideBounds = 3f;
     [SerializeField] private float distanceBetweenArrows = 0.15f;
     [SerializeField] private float scaleDownRatio = 0.4f;
+    [SerializeField] private float startDistance = 10f;
 
     private ObjectPool<GameObject> arrowPool;
     private SplineFollower splineFollower;
@@ -32,13 +33,15 @@ public class ArrowController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        GameManager.Instance.onGameStartEvent.AddListener(OnGameStart);
+        GameManager.Instance.endGameEvent.AddListener(HandleEndGameEvent);
+
         splineFollower = GetComponentInParent<SplineFollower>();
 
-        GameManager.Instance.onGameStartEvent.AddListener(OnGameStart);
-
+        SetSplineStartDistance();
         CreateArrowPool();
-
         SpawnArrow(1);
+
     }
 
     private void Update()
@@ -48,6 +51,24 @@ public class ArrowController : MonoBehaviour
             HandleMovement();
             HandleScale();
         }
+    }
+
+    private void HandleEndGameEvent(bool success)
+    {
+        if (!success)
+        {
+            splineFollower.follow = false;
+        }
+    }
+        
+    private void SetSplineStartDistance()
+    {
+        if (splineFollower == null)
+        {
+            return;
+        }
+
+        splineFollower.startPosition = splineFollower.spline.Travel(0, startDistance);
     }
 
     private void CreateArrowPool()
@@ -109,8 +130,7 @@ public class ArrowController : MonoBehaviour
 
         if (remaining < 1)
         {
-            // Level Failed
-            Debug.Log("Level Failed");
+            GameManager.Instance.EndGame(false);
             return;
         }
 
@@ -131,8 +151,7 @@ public class ArrowController : MonoBehaviour
     {
         if (amount > ArrowCount)
         {
-            // Level Failed
-            Debug.Log("Level Failed");
+            GameManager.Instance.EndGame(false);
             return;
         }
 

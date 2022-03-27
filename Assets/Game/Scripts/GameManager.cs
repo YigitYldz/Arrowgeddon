@@ -5,7 +5,9 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    public UnityEvent onGameStartEvent = new UnityEvent();
+    [HideInInspector] public UnityEvent onGameStartEvent = new UnityEvent();
+    [HideInInspector] public UnityEvent<bool> endGameEvent = new UnityEvent<bool>();
+
     public bool IsGameActive { get; private set; }
 
     #region Singleton
@@ -31,5 +33,13 @@ public class GameManager : MonoBehaviour
     {
         onGameStartEvent?.Invoke();
         IsGameActive = true;
+    }
+
+    public void EndGame(bool success)
+    {
+        IsGameActive = false;
+        endGameEvent?.Invoke(success);
+
+        Debug.Log(success ? "Success" : "Fail");
     }
 }
