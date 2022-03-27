@@ -55,7 +55,7 @@ public class Gate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((doubleGate != null && !doubleGate.IsUsed))
+        if (doubleGate != null && !doubleGate.IsUsed && other.CompareTag("ArrowController"))
         {
             GetComponent<Collider>().enabled = false;
 
@@ -66,6 +66,7 @@ public class Gate : MonoBehaviour
             switch (type)
             {
                 case GateType.Additive:
+                    ArrowController.Instance.SpawnArrow(value);
                     break;
                 case GateType.Multiplier:
                     break;
