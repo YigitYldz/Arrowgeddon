@@ -78,8 +78,6 @@ public class Gate : MonoBehaviour
                     ArrowController.Instance.DivideArrows(value);
                     break;
             }
-
-            Debug.Log("Arrow count: " + ArrowController.Instance.ArrowCount);
         }
     }
 

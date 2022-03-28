@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 10
-  sideSpeed: 65
+  sideSpeed: 40
   sideBounds: 3.75
   distanceBetweenArrows: 0.15
   scaleDownRatio: 0.45

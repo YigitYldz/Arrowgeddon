@@ -40,8 +40,8 @@ public class ArrowController : MonoBehaviour
 
         SetSplineStartDistance();
         CreateArrowPool();
-        SpawnArrow(1);
 
+        SpawnArrow(DataManager.Instance.Arrow);
     }
 
     private void Update()
@@ -147,7 +147,7 @@ public class ArrowController : MonoBehaviour
 
     public void ReduceArrow(int amount)
     {
-        if (amount > ArrowCount)
+        if (amount >= ArrowCount)
         {
             GameManager.Instance.EndGame(false);
             return;
@@ -224,6 +224,17 @@ public class ArrowController : MonoBehaviour
             }
 
             circleOrder++;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Gold"))
+        {
+            DataManager.Instance.SetGold(DataManager.Instance.Gold + 1);
+            UIManager.Instance.SetGoldText(DataManager.Instance.Gold);
+
+            other.transform.DOScale(0f, 0.15f).OnComplete(() => other.gameObject.SetActive(false));
         }
     }
 }
