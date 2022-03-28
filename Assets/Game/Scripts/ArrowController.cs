@@ -70,6 +70,7 @@ public class ArrowController : MonoBehaviour
 
     private void CreateArrowPool()
     {
+
         arrowPrefab = Resources.Load<GameObject>("Arrow");
         arrowPool = new ObjectPool<GameObject>(
             500,
@@ -186,7 +187,7 @@ public class ArrowController : MonoBehaviour
             return;
         }
 
-        SphereCollider col = GetComponent<SphereCollider>();
+        CapsuleCollider col = GetComponent<CapsuleCollider>();
 
         activeArrowsList[0].transform.localPosition = Vector3.zero;
         int arrowIndex = 1;
@@ -194,7 +195,7 @@ public class ArrowController : MonoBehaviour
 
         while (true)
         {
-            col.radius = 0.11f * circleOrder;
+            col.radius = 0.14f * circleOrder;
             float radius = circleOrder * distanceBetweenArrows;
 
             for (int i = 0; i < (circleOrder + 1) * 4; i++)
