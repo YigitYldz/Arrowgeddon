@@ -46,7 +46,7 @@ public class ArrowController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.IsGameActive)
+        if (Input.GetMouseButton(0) &&GameManager.Instance.IsGameActive)
         {
             HandleMovement();
             HandleScale();
