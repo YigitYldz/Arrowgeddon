@@ -48,7 +48,6 @@ public class UIManager : MonoBehaviour
         endPanel.failScreen.SetActive(!success);
 
         ActiveSmooth(endPanelCanvasGroup, true);
-        ActiveSmooth(commonPanelCanvasGroup, false);
     }
 
     private void Active(CanvasGroup cg, bool isActive)

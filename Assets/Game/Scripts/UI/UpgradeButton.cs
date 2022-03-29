@@ -16,8 +16,9 @@ public class UpgradeButton : MonoBehaviour
         buttonComponent = GetComponent<Button>();
         buttonComponent.onClick.AddListener(Upgrade);
 
+        GameManager.Instance.endGameEvent.AddListener(success => HandleButtonLockStatus());
+
         SetPriceText(CalculatePrice());
-        HandleButtonLockStatus();
     }
     private void SetPriceText(int price)
     {
@@ -33,6 +34,9 @@ public class UpgradeButton : MonoBehaviour
             DataManager.Instance.SetGold(DataManager.Instance.Gold - price);
             DataManager.Instance.SetArrow(DataManager.Instance.Arrow + 1);
         }
+
+        UIManager.Instance.SetGoldText(DataManager.Instance.Gold);
+        SetPriceText(CalculatePrice());
 
         HandleButtonLockStatus();
     }
@@ -52,6 +56,6 @@ public class UpgradeButton : MonoBehaviour
     private int CalculatePrice()
     {
         int arrowLevel = DataManager.Instance.Arrow;
-        return basePrice + arrowLevel * 5;
+        return basePrice + arrowLevel * 2;
     }
 }

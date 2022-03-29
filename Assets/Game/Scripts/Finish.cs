@@ -13,10 +13,10 @@ public class Finish : MonoBehaviour
             GetComponent<Collider>().enabled = false;
             GameManager.Instance.EndGame(true);
         
-            for (int i = 0; i < confettiParticles.Length; i++)
-            {
-                confettiParticles[i].Play();
-            }
+            //for (int i = 0; i < confettiParticles.Length; i++)
+            //{
+            //    confettiParticles[i].Play();
+            //}
         }
     }
 }
